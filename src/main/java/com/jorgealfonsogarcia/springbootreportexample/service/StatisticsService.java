@@ -82,4 +82,24 @@ public class StatisticsService {
 
         return list;
     }
+
+    /**
+     * Gets the Average Salary for Information Technology (IT) Services Industry
+     * in the USA.
+     * <a href="https://www.payscale.com/research/US/Industry=Information_Technology_(IT)_Services/Salary">https://www.payscale.com/research/US/Industry=Information_Technology_(IT)_Services/Salary</a>
+     *
+     * @return List of the IT jobs and their average salary for the USA
+     * industry.
+     */
+    public List<ITServiceAverageSalary> getsAverageSalaryFoITServices() {
+        List<ITServiceAverageSalary> list = new ArrayList<>();
+
+        list.add(new ITServiceAverageSalary("Software Engineer", 81496));
+        list.add(new ITServiceAverageSalary("Project Manager, Information Technology", 87488));
+        list.add(new ITServiceAverageSalary("Network Engineer", 66526));
+        list.add(new ITServiceAverageSalary("Project Manager, (General)", 79219));
+        list.add(new ITServiceAverageSalary("Information Technology Manager", 90877));
+
+        return list;
+    }
 }
