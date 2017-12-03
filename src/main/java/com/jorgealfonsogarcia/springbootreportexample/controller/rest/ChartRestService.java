@@ -63,8 +63,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/chart")
 public class ChartRestService {
 
-    private static final String IT_AVERAGE_SALARY_COUNTRY = "USA";
-
     @Autowired
     private StatisticsService statisticsService;
 
@@ -116,11 +114,42 @@ public class ChartRestService {
         final CategoryItemRenderer categoryItemRenderer = categoryPlot.getRenderer();
         categoryItemRenderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         categoryItemRenderer.setDefaultItemLabelsVisible(true);
-        
+
         final ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.TOP_CENTER);
         categoryItemRenderer.setDefaultPositiveItemLabelPosition(position);
 
         writeChartAsPNGImage(barChart, width, height, response);
+    }
+
+    /**
+     * Build a PNG image of a line chart example about the history of number of
+     * users (in millions) of Internet worldwide from 1995.
+     *
+     * @param width Width of the image.
+     * @param height Height of the image.
+     * @param response HTTP Response.
+     * @throws IOException
+     */
+    @RequestMapping(path = "/line/{width}/{height}", method = RequestMethod.GET)
+    public void buildLineChart(@PathVariable("width") int width, @PathVariable("height") int height, HttpServletResponse response) throws IOException {
+        final DefaultCategoryDataset categoryDataset = buildHistoryOfInternetUsersCategoryDataset();
+        final String title = "History of users of the Internet from 1995";
+        final String categoryAxisLabel = "Year";
+        final String valueAxisLabel = "Num. of Users (in millions)";
+        final boolean legend = true;
+        final boolean tooltips = true;
+        final boolean urls = true;
+
+        final JFreeChart lineChart = ChartFactory.createLineChart(title, categoryAxisLabel, valueAxisLabel, categoryDataset, PlotOrientation.VERTICAL, legend, tooltips, urls);
+        final CategoryPlot categoryPlot = (CategoryPlot) lineChart.getPlot();
+        final CategoryItemRenderer categoryItemRenderer = categoryPlot.getRenderer();
+        categoryItemRenderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        categoryItemRenderer.setDefaultItemLabelsVisible(true);
+
+        final ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.TOP_LEFT);
+        categoryItemRenderer.setDefaultPositiveItemLabelPosition(position);
+
+        writeChartAsPNGImage(lineChart, width, height, response);
     }
 
     private PieDataset buildTopIDEIndexPieDataset() {
@@ -131,8 +160,17 @@ public class ChartRestService {
     }
 
     private DefaultCategoryDataset buildITServiceAverageSalaryCategoryDataset() {
+        final Comparable<String> rowKey = "USA";
         final DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
-        statisticsService.getsAverageSalaryFoITServices().forEach((averageSalary) -> categoryDataset.setValue(averageSalary.getAverageSalary(), IT_AVERAGE_SALARY_COUNTRY, averageSalary.getJob()));
+        statisticsService.getsAverageSalaryFoITServices().forEach((averageSalary) -> categoryDataset.setValue(averageSalary.getAverageSalary(), rowKey, averageSalary.getJob()));
+
+        return categoryDataset;
+    }
+
+    private DefaultCategoryDataset buildHistoryOfInternetUsersCategoryDataset() {
+        final Comparable<String> rowKey = "Num. of Users";
+        final DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
+        statisticsService.getsHistoryOfInternetUsers().forEach((history) -> categoryDataset.setValue(history.getMillionsOfUsers(), rowKey, Integer.valueOf(history.getYear())));
 
         return categoryDataset;
     }

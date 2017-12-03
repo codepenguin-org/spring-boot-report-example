@@ -42,7 +42,7 @@ public class ITServiceAverageSalary {
      * @param job Job.
      * @param averageSalary Average salary.
      */
-    public ITServiceAverageSalary(String job, double averageSalary) {
+    ITServiceAverageSalary(String job, double averageSalary) {
         this.job = job;
         this.averageSalary = averageSalary;
     }
