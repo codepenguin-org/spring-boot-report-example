@@ -102,4 +102,42 @@ public class StatisticsService {
 
         return list;
     }
+
+    /**
+     * Gets the history of the number of users of Internet worldwide, year by
+     * year from 1995.
+     * <a href="http://www.internetworldstats.com/emarketing.htm">http://www.internetworldstats.com/emarketing.htm</a>
+     *
+     * @return List of every year from 1995 with their number of users of
+     * Internet (in millions).
+     */
+    public List<InternetUserNumberHistory> getsHistoryOfInternetUsers() {
+        List<InternetUserNumberHistory> list = new ArrayList<>();
+
+        list.add(new InternetUserNumberHistory(1995, 16));
+        list.add(new InternetUserNumberHistory(1996, 36));
+        list.add(new InternetUserNumberHistory(1997, 70));
+        list.add(new InternetUserNumberHistory(1998, 147));
+        list.add(new InternetUserNumberHistory(1999, 248));
+        list.add(new InternetUserNumberHistory(2000, 361));
+        list.add(new InternetUserNumberHistory(2001, 513));
+        list.add(new InternetUserNumberHistory(2002, 587));
+        list.add(new InternetUserNumberHistory(2003, 719));
+        list.add(new InternetUserNumberHistory(2004, 817));
+        list.add(new InternetUserNumberHistory(2005, 1018));
+        list.add(new InternetUserNumberHistory(2006, 1093));
+        list.add(new InternetUserNumberHistory(2007, 1319));
+        list.add(new InternetUserNumberHistory(2008, 1574));
+        list.add(new InternetUserNumberHistory(2009, 1802));
+        list.add(new InternetUserNumberHistory(2010, 1971));
+        list.add(new InternetUserNumberHistory(2011, 2267));
+        list.add(new InternetUserNumberHistory(2012, 2497));
+        list.add(new InternetUserNumberHistory(2013, 2802));
+        list.add(new InternetUserNumberHistory(2014, 3079));
+        list.add(new InternetUserNumberHistory(2015, 3366));
+        list.add(new InternetUserNumberHistory(2016, 3696));
+        list.add(new InternetUserNumberHistory(2017, 3885));
+
+        return list;
+    }
 }

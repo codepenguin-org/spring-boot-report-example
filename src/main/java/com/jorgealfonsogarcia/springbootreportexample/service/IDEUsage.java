@@ -42,7 +42,7 @@ public class IDEUsage {
      * @param ide Name of the IDE.
      * @param percent Percentage of use.
      */
-    public IDEUsage(String ide, Double percent) {
+    IDEUsage(String ide, Double percent) {
         this.ide = ide;
         this.percentage = percent;
     }
