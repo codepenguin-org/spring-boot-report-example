@@ -22,27 +22,20 @@
  * SOFTWARE.
  * 
  */
-package com.jorgealfonsogarcia.springbootreportexample;
+package com.jorgealfonsogarcia.springbootreportexample.controller.rest;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Application main class.
+ * REST service to export charts.
  *
  * @author Jorge Alfonso García Espinosa
  * @since 1.8
  * @version 0.0.1-SNAPSHOT 12/03/2017
  */
-@SpringBootApplication
-public class SpringBootReportExampleApplication {
+@RestController
+@RequestMapping(path = "/chart")
+public class ChartRestService {
 
-    /**
-     * Main method.
-     *
-     * @param args Arguments.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(SpringBootReportExampleApplication.class, args);
-    }
 }
