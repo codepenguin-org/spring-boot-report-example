@@ -22,27 +22,47 @@
  * SOFTWARE.
  * 
  */
-package com.jorgealfonsogarcia.springbootreportexample;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package com.jorgealfonsogarcia.springbootreportexample.service;
 
 /**
- * Application main class.
+ * History of the number the users of internet worldwide.
  *
  * @author Jorge Alfonso García Espinosa
  * @since 1.8
- * @version 0.0.1-SNAPSHOT 12/03/2017
+ * @version 12/03/2017
  */
-@SpringBootApplication
-public class SpringBootReportExampleApplication {
+public class InternetUserNumberHistory {
+
+    private final int year;
+    private final int millionsOfUsers;
 
     /**
-     * Main method.
+     * Constructor.
      *
-     * @param args Arguments.
+     * @param year Year.
+     * @param millionsOfUsers Number of users, in millions.
      */
-    public static void main(String[] args) {
-        SpringApplication.run(SpringBootReportExampleApplication.class, args);
+    InternetUserNumberHistory(int year, int millionsOfUsers) {
+        this.year = year;
+        this.millionsOfUsers = millionsOfUsers;
     }
+
+    /**
+     * Gets the year.
+     *
+     * @return Year.
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * Gets the number of users, in millions.
+     *
+     * @return Millions of users.
+     */
+    public int getMillionsOfUsers() {
+        return millionsOfUsers;
+    }
+
 }
