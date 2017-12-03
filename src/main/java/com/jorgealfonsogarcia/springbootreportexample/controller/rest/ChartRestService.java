@@ -24,19 +24,25 @@
  */
 package com.jorgealfonsogarcia.springbootreportexample.controller.rest;
 
-import com.jorgealfonsogarcia.springbootreportexample.service.IDEUsage;
 import com.jorgealfonsogarcia.springbootreportexample.service.StatisticsService;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletResponse;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.ui.TextAnchor;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +62,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/chart")
 public class ChartRestService {
+
+    private static final String IT_AVERAGE_SALARY_COUNTRY = "USA";
 
     @Autowired
     private StatisticsService statisticsService;
@@ -81,16 +89,58 @@ public class ChartRestService {
         final PiePlot3D piePlot3D = (PiePlot3D) pieChart3D.getPlot();
         piePlot3D.setLabelGenerator(labelGenerator);
 
-        final BufferedImage bufferedImage = pieChart3D.createBufferedImage(width, height);
+        writeChartAsPNGImage(pieChart3D, width, height, response);
+    }
 
-        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-        ChartUtils.writeBufferedImageAsPNG(response.getOutputStream(), bufferedImage);
+    /**
+     * Build a PNG image of a bar chart example about average salary for the IT
+     * industry in USA.
+     *
+     * @param width Width of the image.
+     * @param height Height of the image.
+     * @param response HTTP Response.
+     * @throws IOException
+     */
+    @RequestMapping(path = "/bar/{width}/{height}", method = RequestMethod.GET)
+    public void buildBarChart(@PathVariable("width") int width, @PathVariable("height") int height, HttpServletResponse response) throws IOException {
+        final DefaultCategoryDataset categoryDataset = buildITServiceAverageSalaryCategoryDataset();
+        final String title = "Average Salary for Information Technology (IT) Services Industry";
+        final String categoryAxisLabel = "Jobs";
+        final String valueAxisLabel = "Average Salary (USD)";
+        final boolean legend = true;
+        final boolean tooltips = true;
+        final boolean urls = true;
+
+        final JFreeChart barChart = ChartFactory.createBarChart(title, categoryAxisLabel, valueAxisLabel, categoryDataset, PlotOrientation.VERTICAL, legend, tooltips, urls);
+        final CategoryPlot categoryPlot = (CategoryPlot) barChart.getPlot();
+        final CategoryItemRenderer categoryItemRenderer = categoryPlot.getRenderer();
+        categoryItemRenderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        categoryItemRenderer.setDefaultItemLabelsVisible(true);
+        
+        final ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.TOP_CENTER);
+        categoryItemRenderer.setDefaultPositiveItemLabelPosition(position);
+
+        writeChartAsPNGImage(barChart, width, height, response);
     }
 
     private PieDataset buildTopIDEIndexPieDataset() {
         final DefaultPieDataset pieDataset = new DefaultPieDataset();
         statisticsService.getTopIDEIndex().forEach((usage) -> pieDataset.setValue(usage.getIde(), usage.getPercentage()));
-        
+
         return pieDataset;
+    }
+
+    private DefaultCategoryDataset buildITServiceAverageSalaryCategoryDataset() {
+        final DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
+        statisticsService.getsAverageSalaryFoITServices().forEach((averageSalary) -> categoryDataset.setValue(averageSalary.getAverageSalary(), IT_AVERAGE_SALARY_COUNTRY, averageSalary.getJob()));
+
+        return categoryDataset;
+    }
+
+    private void writeChartAsPNGImage(final JFreeChart chart, final int width, final int height, HttpServletResponse response) throws IOException {
+        final BufferedImage bufferedImage = chart.createBufferedImage(width, height);
+
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+        ChartUtils.writeBufferedImageAsPNG(response.getOutputStream(), bufferedImage);
     }
 }

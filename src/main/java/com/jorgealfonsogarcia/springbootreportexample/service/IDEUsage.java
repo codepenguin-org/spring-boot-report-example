@@ -25,9 +25,7 @@
 package com.jorgealfonsogarcia.springbootreportexample.service;
 
 /**
- * <p>
  * Percent of usage of the IDE's (Integrated development environment).
- * </p>
  *
  * @author Jorge Alfonso García Espinosa
  * @since 1.8
