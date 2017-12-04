@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+MIT License
+
+Copyright (c) 2017 Jorge Alfonso García Espinosa
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Example of a Spring Boot project with JFreeChart to generate images.</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+        <link rel="shortcut icon" href="/img/favicon-pie-chart.ico" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container">
+                            <h1 class="display-3">spring-boot-report-example</h1>
+                            <p class="lead">Example of a Spring Boot project with JFreeChart to generate images.</p>
+                            <a class="btn btn-dark" href="https://github.com/jorgealfonsogarcia/spring-boot-report-example" role="button" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i>GitHub Repository</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <nav class="nav nav-tabs" id="my-tablist" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-pie-chart-tab" data-toggle="tab" href="#nav-pie-chart" role="tab" aria-controls="nav-pie-chart" aria-selected="true">Pie Chart</a>
+                        <a class="nav-item nav-link" id="nav-bar-chart-tab" data-toggle="tab" href="#nav-bar-chart" role="tab" aria-controls="nav-bar-chart" aria-selected="false">Bar Chart</a>
+                        <a class="nav-item nav-link" id="nav-line-chart-tab" data-toggle="tab" href="#nav-line-chart" role="tab" aria-controls="nav-line-chart" aria-selected="false">Line Chart</a>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-pie-chart" role="tabpanel" aria-labelledby="nav-pie-chart-tab">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h2>Pie Chart</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <p>Call the REST Service:</p>
+                                    <pre><code>/chart/pie/{width}/{heigth}</code></pre>
+                                    <h3>Example</h3>
+                                    <pre><code>/chart/pie/800/600</code></pre>
+                                    <img src="/chart/pie/800/600/" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h3>Source code</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <script src="https://gist.github.com/jorgealfonsogarcia/566b718efd2ebb301982d2e7d6cfb745.js"></script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-bar-chart" role="tabpanel" aria-labelledby="nav-bar-chart-tab">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h2>Bar Chart</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <p>Call the REST Service:</p>
+                                    <pre><code>/chart/bar/{width}/{heigth}</code></pre>
+                                    <h3>Example</h3>
+                                    <pre><code>/chart/bar/800/600</code></pre>
+                                    <img src="/chart/bar/800/600/" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h3>Source code</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <script src="https://gist.github.com/jorgealfonsogarcia/b8d4c90c56a53792e23a85a90ef84087.js"></script>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="tab-pane fade" id="nav-line-chart" role="tabpanel" aria-labelledby="nav-line-chart-tab">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h2>Line Chart</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <p>Call the REST Service:</p>
+                                    <pre><code>/chart/line/{width}/{heigth}</code></pre>
+                                    <h3>Example</h3>
+                                    <pre><code>/chart/line/1000/600</code></pre>
+                                    <img src="/chart/line/1000/600/" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h3>Source code</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <script src="https://gist.github.com/jorgealfonsogarcia/8430a50e0f6d49cf5c7848ba562d951a.js"></script>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    </body>
+
+</html>
